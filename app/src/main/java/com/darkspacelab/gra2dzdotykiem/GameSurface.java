@@ -4,8 +4,10 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
 
 public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
@@ -22,6 +24,22 @@ public class GameSurface extends SurfaceView implements SurfaceHolder.Callback {
 
         // Sét callback.
         this.getHolder().addCallback(this);
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent motionEvent){
+        if (motionEvent.getAction() == MotionEvent.ACTION_DOWN)
+        {
+            int x = (int)motionEvent.getX();
+            int y = (int)motionEvent.getY();
+
+            int movingVectorX = x- this.chibi1.getX();
+            int movingVectorY = y- this.chibi1.getY();
+
+            this.chibi1.setmPoruszajacyWektor(movingVectorX,movingVectorY);
+            return true;
+        }
+        return false;
     }
 
     public void update()  {
